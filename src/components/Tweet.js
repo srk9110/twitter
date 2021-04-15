@@ -1,5 +1,7 @@
 import { dbService, storageService } from 'fbInstance';
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Tweet = ({tweetObj, isOwner})=>{
     //editing mode인가 아닌가
@@ -38,23 +40,25 @@ const Tweet = ({tweetObj, isOwner})=>{
 
     //버튼을 보여줌
     return (
-        <div>
+        <div className="tweet">
             {
                 editing ? (
                 <>
                     {
                     isOwner && <>
-                    <form onSubmit={onSubmit}>
+                    <form onSubmit={onSubmit} className="container tweetEdit">
                         <input 
                             type="text" 
                             placeholder="Edit your tweet!" 
                             value={newTweet}
                             onChange={onChange} 
                             required
+                            autoFocus
+                            className="formInput"
                         />
-                        <input type="submit" value="Update Tweet"/>
+                        <input type="submit" value="Update Tweet" className="formBtn"/>
                     </form>
-                    <button onClick={toggleEditing}>Cancel</button>
+                    <button onClick={toggleEditing} className="formBtn cancelBtn">Cancel</button>
                     </>
                     }
                     
@@ -63,13 +67,13 @@ const Tweet = ({tweetObj, isOwner})=>{
                     <>
                         <h4>{tweetObj.text}</h4>
                         {/*img가 있을 때만 img를 보겠다*/}
-                        {tweetObj.attachmentUrl && <img src={tweetObj.attachmentUrl} width="50px" height="50px"/>}
+                        {tweetObj.attachmentUrl && <img src={tweetObj.attachmentUrl}/>}
                         {/*isOwner가 true일때만 버튼을 보겠다. 내가 쓴 글일때만 보겠다*/}
                         {isOwner && (
-                            <>
-                                <button onClick={onDeleteClick}>delete</button>
-                                <button onClick={toggleEditing}>edit</button>
-                            </>
+                            <div className="tweet__actions">
+                                <span onClick={onDeleteClick}><FontAwesomeIcon icon={faTrash} /></span>
+                                <span onClick={toggleEditing}><FontAwesomeIcon icon={faPencilAlt} /></span>
+                            </div>
                         )}
                     </>    
                 )}

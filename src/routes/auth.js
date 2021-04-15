@@ -1,6 +1,9 @@
 import AuthFrom from 'components/AuthForm';
 import { authService, firebaseInstance } from 'fbInstance';
 import React from 'react';
+import '../style.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTwitter,faGoogle,faGithub } from '@fortawesome/free-brands-svg-icons'
 
 const Auth=()=> {
     
@@ -20,11 +23,16 @@ const Auth=()=> {
     }
 
     return (
-    <div>
+    <div className="authContainer">
+        <FontAwesomeIcon className="twitterIcon" icon={faTwitter} size="3x" />
         <AuthFrom />
-        <div>
-            <button onClick={onSocialClick} name="google">Continue with Google</button>
-            <button onClick={onSocialClick} name="github">Continue with Github</button>
+        <div className="authButtons">
+            <button className="authButton" onClick={onSocialClick} name="google">
+                <FontAwesomeIcon icon={faGoogle}/> Continue with Google  
+                </button>
+            <button className="authButton" onClick={onSocialClick} name="github">
+                <FontAwesomeIcon icon={faGithub}/> Continue with Github  
+                </button>
         </div>
     </div>
         );
